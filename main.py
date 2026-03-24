@@ -1,0 +1,243 @@
+import re
+from pathlib import Path
+from datetime import datetime
+
+import frontmatter as fm
+import mistune
+from fasthtml.common import *
+
+from config import SITE_NAME, PORT, NAV_LINKS, UI_STRINGS
+
+# ---------------------------------------------------------------------------
+# Markdown renderer
+# ---------------------------------------------------------------------------
+
+md = mistune.create_markdown(
+    plugins=["table", "strikethrough", "task_lists"],
+)
+
+# ---------------------------------------------------------------------------
+# Post loading
+# ---------------------------------------------------------------------------
+
+POSTS_DIR = Path("posts")
+
+MESES = {
+    1: "enero", 2: "febrero", 3: "marzo", 4: "abril",
+    5: "mayo", 6: "junio", 7: "julio", 8: "agosto",
+    9: "septiembre", 10: "octubre", 11: "noviembre", 12: "diciembre",
+}
+
+
+def slugify(text: str) -> str:
+    text = text.lower().strip()
+    text = re.sub(r"[^\w\s-]", "", text)
+    text = re.sub(r"[\s_]+", "-", text)
+    return text
+
+
+def load_posts() -> list[dict]:
+    posts = []
+    seen_slugs: dict[tuple, str] = {}
+
+    for md_file in POSTS_DIR.glob("*/*.md"):
+        chapter = md_file.parent.name
+        post = fm.load(str(md_file))
+
+        if not post.get("published", False):
+            continue
+
+        title = post.get("title", md_file.stem)
+        slug = post.get("slug") or slugify(title)
+        key = (chapter, slug)
+
+        if key in seen_slugs:
+            raise ValueError(
+                f"Slug collision: '{slug}' in chapter '{chapter}' "
+                f"({md_file} vs {seen_slugs[key]})"
+            )
+        seen_slugs[key] = str(md_file)
+
+        date_raw = post.get("date")
+        if hasattr(date_raw, "month"):
+            date_str = f"{date_raw.day} de {MESES[date_raw.month]} de {date_raw.year}"
+        else:
+            date_str = str(date_raw)
+
+        posts.append(
+            {
+                "title": title,
+                "slug": slug,
+                "chapter": chapter,
+                "date": date_raw,
+                "date_str": date_str,
+                "published": post.get("published", False),
+                "content": md(post.content),
+            }
+        )
+
+    posts.sort(key=lambda p: p["date"] or datetime.min, reverse=True)
+    return posts
+
+
+def build_index() -> dict[tuple, dict]:
+    return {(p["chapter"], p["slug"]): p for p in load_posts()}
+
+
+ALL_POSTS = load_posts()
+POST_INDEX = build_index()
+
+# ---------------------------------------------------------------------------
+# App
+# ---------------------------------------------------------------------------
+
+app, rt = fast_app(live=True)
+
+COMMON_HDRS = (
+    Link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.min.css"),
+    Link(rel="preconnect", href="https://fonts.googleapis.com"),
+    Link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin=""),
+    Link(rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap"),
+    Link(rel="stylesheet", href="/static/custom.css"),
+    Script("""
+        (function() {
+            var t = document.cookie.match(/theme=([^;]+)/);
+            if (t) document.documentElement.setAttribute('data-theme', t[1]);
+        })();
+
+        function toggleTheme() {
+            var current = document.documentElement.getAttribute('data-theme') || 'light';
+            var next = current === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', next);
+        }
+    """),
+)
+
+# ---------------------------------------------------------------------------
+# Components
+# ---------------------------------------------------------------------------
+
+def nav_bar(current_path: str = "/"):
+    links = [A(label, href=href, cls="nav-link") for label, href in NAV_LINKS]
+    theme_btn = Button(
+        UI_STRINGS["toggle_theme"],
+        hx_post="/set-theme",
+        hx_swap="none",
+        cls="theme-toggle",
+        onclick="toggleTheme(this)",
+    )
+    return Nav(
+        Div(A(SITE_NAME, href="/", cls="site-title"), cls="nav-brand"),
+        Div(*links, theme_btn, cls="nav-links"),
+        cls="site-nav",
+    )
+
+
+def post_row(post: dict):
+    url = f"/{post['chapter']}/{post['slug']}"
+    return Article(
+        Div(
+            Span(post["chapter"], cls="chapter-label"),
+            Span(post["date_str"], cls="post-date"),
+            cls="post-meta",
+        ),
+        A(post["title"], href=url, cls="post-title-link"),
+        cls="post-row",
+    )
+
+
+def post_page_content(post: dict):
+    back_url = "/"
+    return Main(
+        Article(
+            Header(
+                Div(
+                    Span(post["chapter"], cls="chapter-label"),
+                    Span(post["date_str"], cls="post-date"),
+                    cls="post-meta",
+                ),
+                H1(post["title"]),
+                cls="post-header",
+            ),
+            Div(NotStr(post["content"]), cls="post-body"),
+            Footer(
+                A(UI_STRINGS["back_to_blog"], href=back_url, cls="back-link"),
+                cls="post-footer",
+            ),
+        ),
+        cls="post-page",
+    )
+
+
+def page_shell(title: str, current_path: str, *content):
+    return Html(
+        Head(
+            Meta(charset="utf-8"),
+            Meta(name="viewport", content="width=device-width, initial-scale=1"),
+            Title(f"{title} — {SITE_NAME}"),
+            *COMMON_HDRS,
+        ),
+        Body(
+            nav_bar(current_path),
+            *content,
+            Footer(
+                P(f"© {SITE_NAME}", cls="footer-copy"),
+                cls="site-footer",
+            ),
+        ),
+        data_theme="light",
+    )
+
+
+def not_found_page():
+    return page_shell(
+        UI_STRINGS["not_found_title"],
+        "/",
+        Main(
+            H2(UI_STRINGS["not_found_title"]),
+            P(UI_STRINGS["not_found_body"]),
+            A(UI_STRINGS["back_to_blog"], href="/"),
+            cls="not-found",
+        ),
+    )
+
+# ---------------------------------------------------------------------------
+# Routes
+# ---------------------------------------------------------------------------
+
+@rt("/")
+def index():
+    rows = [post_row(p) for p in ALL_POSTS]
+    return page_shell(
+        SITE_NAME,
+        "/",
+        Main(
+            Div(*rows, cls="post-list") if rows else P("Próximamente."),
+            cls="blog-index",
+        ),
+    )
+
+
+@rt("/{chapter}/{slug}")
+def post_view(chapter: str, slug: str):
+    post = POST_INDEX.get((chapter, slug))
+    if not post:
+        return not_found_page()
+    return page_shell(post["title"], f"/{chapter}/{slug}", post_page_content(post))
+
+
+@rt("/static/{fname:path}")
+async def static_files(fname: str):
+    return FileResponse(f"static/{fname}")
+
+
+@rt("/set-theme", methods=["POST"])
+def set_theme(req):
+    current = req.cookies.get("theme", "light")
+    new_theme = "dark" if current == "light" else "light"
+    resp = Response(status_code=204)
+    resp.set_cookie("theme", new_theme, max_age=60 * 60 * 24 * 365)
+    return resp
+
+
+serve(port=PORT)

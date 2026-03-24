@@ -1,0 +1,17 @@
+__pycache__/
+*.py[oc]
+.venv
+.venv/
+.python-version
+.sesskey
+uv.lock
+
+## ========== ##
+
+# folders
+__pycache__/
+.venv/
+# files
+.python-version
+.sesskey
+uv.lock

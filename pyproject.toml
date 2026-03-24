@@ -1,0 +1,10 @@
+[project]
+name = "dieciocho"
+version = "0.1.0"
+requires-python = ">=3.13"
+dependencies = [
+    "mistune>=3.0",
+    "python-fasthtml>=0.12.50",
+    "python-frontmatter>=1.1.0",
+    "uvicorn>=0.42.0",
+]

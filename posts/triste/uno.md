@@ -1,0 +1,16 @@
+---
+title: 1
+date: 2025-12-10
+published: true
+slug: uno
+---
+
+El viernes Dieciocho dio paso a muchas emociones: rabia, éxtasis, esperanza, temor, y otras más que ahora no puedo identificar. Pero una emoción que me tomó por sorpresa fue la tristeza.
+
+Cuando lo pienso hoy, siento que ese ataque sorpresivo fue a cuenta de mi privilegio. En esa época, trabajaba en una empresa que estaba lejos de mi casa, pero yo trabajaba desde mi cama. (Si, conocí el teleteabajo antes de que esa frase fuera común en nuestras vidas. Envídienme.) Vivía en una zona que estaba muy bien conectada al transporte, por lo que las estaciones del Metro quemadas nunca me afectaron. Podía pagar taxis a donde quisiera ir, y eso nunca fue tema. No tenía que levantarme dos horas antes de la hora para poder ganarme el pan; creo que eso me llevaba al quintil más privilegiado de la ciudad. Mierda, probablemente al decil más privlegiado. Y fue ese privilegio el que me impidió ver antes el padecer de TANTA gente, todos quienes dejaron de poder vivir como vivían a cuenta del vandalismo y del terror. Porque seamos francos, lo que vivimos como sociedad fue terror. Aunque el gobierno de turno, fiel a su tradición antidemocrática y antisocial, lo llamara "terrorismo", no fue terror inducido de forna orquestada y deliberada para sentir terror; solo lo sentimos, porque francamente, fue mucho. Mucho de todo, mucho de lo que más daño nos haría.
+
+No siempre me he considerado una persona empática. De hecho, durante años me cuestioné si sentía empatía de alguna forma, en algún nivel. Dicen que una persona narcicista nunca se pregunta si lo es; creo que eso me dio algo de paz. O de calma momentánea, al menos. Entre otras cosas, eso me mató cuando escuché por primera vez a una persona sufrir por la devastación de la revolución.
+
+Mientras más lo pienso, más siento que fue sólo un intento de revolución: las paredes rayadas, la vía pública dañada, las rutas de pasaje reordenadas y redireccionadas. Discursos políticos altisonantes y profundamente vacíos, mostrando la ignorancia de nuestros intrépidos representantes, mientras gente de lado y lado del espectro intentaban atribuirse victorias vacías que podrían haber sonado a votos, a poder, pero hedían a capacitismo y a desconexión. Esa desconexión que era evidente en cada video de Luksic hablando de poder y sociedad; en cada intervención altisonante de Schalper y Desbordes en la tele; en cada discusión del que le dicen Jotacé con Camila Flores. Desconectados del kilo de pan y del precio del Metro, desconectados de las dolencias y del padecer de la gente. Siempre en línea tuiteando hasta la muerte – el Merluzo también. Porque cuando digo "la elite" o "el poder" no digo "la derecha", aun cuando tengo un especial resquemor por aquellos. Cuando digo "la elite" digo la gente que tiene poder y los medios para blandirlo. Los Boric, los Piñera, los Carmona, los Elizalde, y los Bellolio y Kaiser también. La elite, los que tienen el poder, los que tienen el capital para hacer sus vidas mejores y empeorar las nuestras (que no es lo mismo aunque suene igual), estaban desconectados de la realidad. Aún lo están, si me apuran.
+
+Y mi primer golpe de tristeza fue darme cuenta que yo también.
