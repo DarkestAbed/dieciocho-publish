@@ -262,6 +262,13 @@ a:hover {
     opacity: 0.6;
 }
 
+.post-preview {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin: 0.35rem 0 0;
+    line-height: 1.5;
+}
+
 .chapter-heading {
     font-size: 1rem;
     font-weight: 700;

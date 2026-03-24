@@ -1,5 +1,6 @@
 import os
 import re
+from html.parser import HTMLParser
 from pathlib import Path
 from datetime import datetime
 
@@ -28,6 +29,25 @@ MESES = {
     5: "mayo", 6: "junio", 7: "julio", 8: "agosto",
     9: "septiembre", 10: "octubre", 11: "noviembre", 12: "diciembre",
 }
+
+
+class _TextExtractor(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self._parts = []
+
+    def handle_data(self, data):
+        self._parts.append(data)
+
+    def text(self):
+        return " ".join(self._parts).split()
+
+
+def plain_preview(html: str, chars: int = 100) -> str:
+    parser = _TextExtractor()
+    parser.feed(html)
+    text = " ".join(parser.text())
+    return text[:chars] + "…" if len(text) > chars else text
 
 
 def slugify(text: str) -> str:
@@ -164,12 +184,14 @@ def nav_bar(current_path: str = "/"):
 
 def post_row(post: dict):
     url = f"/{post['chapter']}/{post['slug']}"
+    preview = plain_preview(post["content"])
     return Article(
         Div(
             Span(post["date_str"], cls="post-date"),
             cls="post-meta",
         ),
         A(f"{post['chapter']} / {post['slug']}", href=url, cls="chapter-label post-pill-link"),
+        P(preview, cls="post-preview") if preview else None,
         cls="post-row",
     )
 
@@ -239,7 +261,8 @@ def not_found_page():
 
 @rt("/")
 def index():
-    rows = [post_row(p) for p in ALL_POSTS]
+    sorted_posts = sorted(ALL_POSTS, key=lambda p: (p["chapter"], p["date"]))
+    rows = [post_row(p) for p in sorted_posts]
     return page_shell(
         SITE_NAME,
         "/",
