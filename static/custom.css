@@ -189,6 +189,24 @@ a:hover {
     border-radius: 3px;
 }
 
+.post-pill-link {
+    display: inline-block;
+    text-decoration: none;
+}
+
+.post-pill-link:hover {
+    opacity: 0.6;
+}
+
+.chapter-heading {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+}
+
 .post-date {
     font-size: 0.82rem;
     color: var(--muted);

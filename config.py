@@ -1,5 +1,7 @@
+import os
+
 SITE_NAME = "Dieciocho"
-PORT = 5009
+PORT = int(os.environ.get("PORT", 5009))
 
 NAV_LINKS = [
     ("Inicio", "/"),

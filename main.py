@@ -1,3 +1,4 @@
+import os
 import re
 from pathlib import Path
 from datetime import datetime
@@ -91,7 +92,8 @@ POST_INDEX = build_index()
 # App
 # ---------------------------------------------------------------------------
 
-app, rt = fast_app(live=True)
+DEV = os.environ.get("RAILWAY_ENVIRONMENT") is None
+app, rt = fast_app(live=DEV)
 
 COMMON_HDRS = (
     Link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.min.css"),
@@ -137,11 +139,10 @@ def post_row(post: dict):
     url = f"/{post['chapter']}/{post['slug']}"
     return Article(
         Div(
-            Span(post["chapter"], cls="chapter-label"),
             Span(post["date_str"], cls="post-date"),
             cls="post-meta",
         ),
-        A(post["title"], href=url, cls="post-title-link"),
+        A(f"{post['chapter']} / {post['slug']}", href=url, cls="chapter-label post-pill-link"),
         cls="post-row",
     )
 
@@ -218,6 +219,26 @@ def index():
     )
 
 
+@rt("/{chapter}/")
+def chapter_index(chapter: str):
+    posts = sorted(
+        [p for p in ALL_POSTS if p["chapter"] == chapter],
+        key=lambda p: p["date"],
+    )
+    if not posts:
+        return not_found_page()
+    rows = [post_row(p) for p in posts]
+    return page_shell(
+        chapter,
+        f"/{chapter}/",
+        Main(
+            H2(chapter, cls="chapter-heading"),
+            Div(*rows, cls="post-list"),
+            cls="blog-index",
+        ),
+    )
+
+
 @rt("/{chapter}/{slug}")
 def post_view(chapter: str, slug: str):
     post = POST_INDEX.get((chapter, slug))
@@ -240,4 +261,5 @@ def set_theme(req):
     return resp
 
 
-serve(port=PORT)
+if __name__ == "__main__":
+    serve(port=PORT)
