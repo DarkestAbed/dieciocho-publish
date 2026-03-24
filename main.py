@@ -119,6 +119,33 @@ COMMON_HDRS = (
 # Components
 # ---------------------------------------------------------------------------
 
+def get_chapters() -> list[str]:
+    """Chapters sorted by the date of their earliest post."""
+    earliest: dict[str, object] = {}
+    for p in ALL_POSTS:
+        ch = p["chapter"]
+        if ch not in earliest or p["date"] < earliest[ch]:
+            earliest[ch] = p["date"]
+    return sorted(earliest, key=lambda ch: earliest[ch])
+
+
+def chapter_sidebar(current_path: str = "/"):
+    chapters = get_chapters()
+    items = []
+    for ch in chapters:
+        href = f"/{ch}/"
+        active = current_path == href or current_path.startswith(f"/{ch}/")
+        items.append(
+            Li(A(ch, href=href, cls=f"sidebar-link{'  sidebar-link--active' if active else ''}"))
+        )
+    return Aside(
+        Nav(
+            Ul(*items, cls="sidebar-list"),
+        ),
+        cls="chapter-sidebar",
+    )
+
+
 def nav_bar(current_path: str = "/"):
     links = [A(label, href=href, cls="nav-link") for label, href in NAV_LINKS]
     theme_btn = Button(
@@ -180,7 +207,11 @@ def page_shell(title: str, current_path: str, *content):
         ),
         Body(
             nav_bar(current_path),
-            *content,
+            Div(
+                chapter_sidebar(current_path),
+                Div(*content, cls="main-content"),
+                cls="layout",
+            ),
             Footer(
                 P(f"© {SITE_NAME}", cls="footer-copy"),
                 cls="site-footer",

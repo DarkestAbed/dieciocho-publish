@@ -144,6 +144,70 @@ a:hover {
 }
 
 /* -----------------------------------------------------------------------
+   Layout
+   ----------------------------------------------------------------------- */
+
+.layout {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    min-height: calc(100vh - 56px);
+}
+
+.main-content {
+    border-left: 1px solid var(--border);
+    min-width: 0;
+}
+
+/* -----------------------------------------------------------------------
+   Sidebar
+   ----------------------------------------------------------------------- */
+
+.chapter-sidebar {
+    padding: 2rem 1rem 2rem 1.5rem;
+    position: sticky;
+    top: 56px;
+    height: calc(100vh - 56px);
+    overflow-y: auto;
+}
+
+.chapter-sidebar nav {
+    background: none;
+}
+
+.sidebar-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.sidebar-link {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--muted);
+    padding: 0.3rem 0.5rem;
+    border-radius: 4px;
+    transition: color 0.1s, background 0.1s;
+}
+
+.sidebar-link:hover {
+    color: var(--text);
+    background: var(--border);
+    opacity: 1;
+}
+
+.sidebar-link--active {
+    color: var(--text);
+    background: var(--border);
+}
+
+/* -----------------------------------------------------------------------
    Blog index
    ----------------------------------------------------------------------- */
 
@@ -361,6 +425,27 @@ a:hover {
    ----------------------------------------------------------------------- */
 
 @media (max-width: 640px) {
+    .layout {
+        grid-template-columns: 1fr;
+    }
+
+    .chapter-sidebar {
+        position: static;
+        height: auto;
+        padding: 1rem 1.5rem 0;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .sidebar-list {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+    }
+
+    .main-content {
+        border-left: none;
+    }
+
     .site-nav {
         padding: 0 1rem;
     }
