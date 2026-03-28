@@ -3,6 +3,8 @@ title: 2
 date: 2025-12-11
 published: true
 slug: dos
+prev: uno
+next: tres
 ---
 
 El 18 de octubre de 2019 fue el punto cúlmine de un proceso psicohistórico irreversible: durante décadas, las brechas socioeconómicas de la sociedad chilena, y particularmente la sociedad santiaguina, fueron ampliándose al punto del hartazgo. Y esa semana, si recuerdo bien, el ministro de transportes, telecomunicaciones y otra cosa irrelevante que ponían para darle rimbombancia a ese título, anunció que el pasaje de Transantiago iba a subir $30. Un alza de, digamos, el 5%? No se ve tanto. Para mí no era tanto, que viajaba en Uber y poca micro por esos días. También, no era tanto para mi sueldo. Para mis gastos. Para mi soltería y mi vida sin hijos, privilegiada.

@@ -3,6 +3,8 @@ title: 2
 date: 2025-12-11
 published: true
 slug: dos
+prev: uno
+next: tres
 ---
 
 Hubo varias convocatorias populares en Ñuñoa, que es la comuna donde vivía en esa época. (Ustedes no pueden verme la cara, pero que _yo_ viva en Ñuñoa es casi un imperativo biológico. Por ahora, les pido me crean :-). Los días y semanas de octubre, después del Viernes de Fuego (alto nombre liberé para el 18O), esas convocatorias eran muy disonantes de lo que pasaba en el Centro: mientras en Plaza Dignidad había barricadas, GOPE y gases nocivos para la salud,en Ñuñoa había fiestas de tecno subversivo y resistencia bailada. La idea, el concepto, aún me joden: _resistencia en el baile_. Como si poner música fuerte en un espacio público y molestar a los vecinos fuera un acto de rebeldía.

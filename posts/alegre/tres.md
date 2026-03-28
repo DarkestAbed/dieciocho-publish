@@ -3,6 +3,8 @@ title: 3
 date: 2025-12-15
 published: true
 slug: tres
+prev: dos
+next: cuatro
 ---
 
 Salir de mi casa en el centro, en un departamento demasiado grande para la cuadra en la que estaba, era salir a respirar lacrimógena y esquivar calles cortadas porque Fuerzas Especiales estaba haciendo redadas. Mi rutina diaria de bajar a comprar almuerzo a alguno de los muchos restoranes y carritos que había cerca de mi casa se vió súbitamente interrumpida por el ruido de las bombas lacrimógenas saliendo de los cañones que, rara vez, estuvieron a más de 45° del suelo, como lo establecía la norma que tanto fue discutida en esos días. Y, sorpresa sorpresa, nunca más nadie recordó.

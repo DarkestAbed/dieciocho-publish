@@ -467,3 +467,35 @@ a:hover {
         font-size: 1.6rem;
     }
 }
+
+/* ---------------------------------------------------------------------------
+   Post chapter navigation (prev / next)
+--------------------------------------------------------------------------- */
+
+.post-nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    padding: 0.75rem 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+.post-nav-prev,
+.post-nav-next {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.15s;
+}
+
+.post-nav-prev:hover,
+.post-nav-next:hover {
+    color: var(--text);
+}
+
+.post-nav-next {
+    margin-left: auto;
+}

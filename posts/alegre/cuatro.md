@@ -3,6 +3,8 @@ title: 4
 date: 2025-12-23
 published: true
 slug: cuatro
+prev: tres
+next: cinco
 ---
 
 El 15 de noviembre, estuve pegado a la tele por mucho rato. Lo que para mi era problemático porque no tenía una tele como electrodoméstico y tuve que buscar en internet cómo mirar las noticias en línea, en un momento donde el streaming no era tan masivo ni era tan común. Como el hoyo, pero lo logré. A las... No me acuerdo, realmente, qué hora era. Me acuerdo que era madrugada, que estaba acostado aferrado al cobertor, que miraba la pantalla de la compu, que fumaba como chimenea, que rogaba a los poderes inmateriales (porque ya era agnóstico en esa época) que saliera algo bueno de esa reunión a puertas cerradas con todos los líderes políticos que el poder legislativo pudo congregar. Esa reunión, que marcó el destino político del país hasta hoy, y probablemente mucho más allá. Esa reunión, donde hubo egos rotos y memes para festinar. Esa reunión que emanó el documento más rimbombante jamás emanado en la historia de nuestra joven nación: el Acuerdo por la Paz Social y la Nueva Constitución.

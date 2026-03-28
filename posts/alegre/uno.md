@@ -3,6 +3,7 @@ title: 1
 date: 2025-12-09
 published: true
 slug: uno
+next: dos
 ---
 
 A las cuatro de la mañana, mi celular vibró. Vibró una vez, y luego dos y luego tres: medio dormido entendí que mi celular estaba _sonando_, que me estaban llamando, que no era un mensaje en whatsApp o algo así que pudiera ignorar. Y lo respondí, así medio dormido, y una voz un poco urgente y muy asustada, me dijo:

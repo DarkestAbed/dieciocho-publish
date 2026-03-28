@@ -3,6 +3,7 @@ title: 1
 date: 2025-12-10
 published: true
 slug: uno
+next: dos
 ---
 
 El viernes Dieciocho dio paso a muchas emociones: rabia, éxtasis, esperanza, temor, y otras más que ahora no puedo identificar. Pero una emoción que me tomó por sorpresa fue la tristeza.

@@ -94,6 +94,8 @@ def load_posts() -> list[dict]:
                 "date_str": date_str,
                 "published": post.get("published", False),
                 "content": md(post.content),
+                "next_slug": post.get("next"),
+                "prev_slug": post.get("prev"),
             }
         )
 
@@ -196,13 +198,26 @@ def post_row(post: dict):
     )
 
 
-def post_page_content(post: dict):
-    back_url = "/"
+def post_page_content(post: dict, post_index: dict):
+    chapter = post["chapter"]
+    prev_post = post_index.get((chapter, post["prev_slug"])) if post.get("prev_slug") else None
+    next_post = post_index.get((chapter, post["next_slug"])) if post.get("next_slug") else None
+
+    nav_items = []
+    if prev_post:
+        nav_items.append(
+            A(f"← {prev_post['title']}", href=f"/{chapter}/{prev_post['slug']}", cls="post-nav-prev")
+        )
+    if next_post:
+        nav_items.append(
+            A(f"{next_post['title']} →", href=f"/{chapter}/{next_post['slug']}", cls="post-nav-next")
+        )
+
     return Main(
         Article(
             Header(
                 Div(
-                    Span(post["chapter"], cls="chapter-label"),
+                    Span(chapter, cls="chapter-label"),
                     Span(post["date_str"], cls="post-date"),
                     cls="post-meta",
                 ),
@@ -211,7 +226,8 @@ def post_page_content(post: dict):
             ),
             Div(NotStr(post["content"]), cls="post-body"),
             Footer(
-                A(UI_STRINGS["back_to_blog"], href=back_url, cls="back-link"),
+                Div(*nav_items, cls="post-nav") if nav_items else None,
+                A(UI_STRINGS["back_to_blog"], href="/", cls="back-link"),
                 cls="post-footer",
             ),
         ),
@@ -298,7 +314,7 @@ def post_view(chapter: str, slug: str):
     post = POST_INDEX.get((chapter, slug))
     if not post:
         return not_found_page()
-    return page_shell(post["title"], f"/{chapter}/{slug}", post_page_content(post))
+    return page_shell(post["title"], f"/{chapter}/{slug}", post_page_content(post, POST_INDEX))
 
 
 @rt("/static/{fname:path}")

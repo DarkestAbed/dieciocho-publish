@@ -3,6 +3,7 @@ title: 5
 date: 2025-12-29
 published: true
 slug: cinco
+prev: cuatro
 ---
 
 Los días que siguieron al 18 de octubre fueron súper intensos. Fue en esa intensidad que aparecieron rituales que nos ayudarían a sostener esa intensidad. Y uno de los más hermosos, que sentí nos unió más, fueron los cacerolazos.
