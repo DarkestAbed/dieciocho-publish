@@ -11,6 +11,7 @@ uv.lock
 # folders
 __pycache__/
 .venv/
+memory/
 # files
 .python-version
 .sesskey

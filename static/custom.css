@@ -154,6 +154,7 @@ a:hover {
 }
 
 .main-content {
+    grid-column: 2;
     border-left: 1px solid var(--border);
     min-width: 0;
 }
@@ -163,11 +164,15 @@ a:hover {
    ----------------------------------------------------------------------- */
 
 .chapter-sidebar {
-    padding: 2rem 1rem 2rem 1.5rem;
-    position: sticky;
+    position: fixed;
     top: 56px;
+    left: 0;
+    width: 180px;
     height: calc(100vh - 56px);
     overflow-y: auto;
+    background: var(--bg);
+    padding: 2rem 1rem 2rem 1.5rem;
+    z-index: 50;
 }
 
 .chapter-sidebar nav {
@@ -438,9 +443,11 @@ a:hover {
 
     .chapter-sidebar {
         position: static;
+        width: auto;
         height: auto;
         padding: 1rem 1.5rem 0;
         border-bottom: 1px solid var(--border);
+        z-index: auto;
     }
 
     .sidebar-list {
@@ -450,6 +457,7 @@ a:hover {
     }
 
     .main-content {
+        grid-column: 1;
         border-left: none;
     }
 
