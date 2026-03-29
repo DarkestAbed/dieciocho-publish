@@ -235,7 +235,8 @@ def post_page_content(post: dict, post_index: dict):
     )
 
 
-def page_shell(title: str, current_path: str, *content):
+def page_shell(title: str, current_path: str, *content, req=None):
+    theme = req.cookies.get("theme", "light") if req else "light"
     return Html(
         Head(
             Meta(charset="utf-8"),
@@ -255,11 +256,11 @@ def page_shell(title: str, current_path: str, *content):
                 cls="site-footer",
             ),
         ),
-        data_theme="light",
+        data_theme=theme,
     )
 
 
-def not_found_page():
+def not_found_page(req=None):
     return page_shell(
         UI_STRINGS["not_found_title"],
         "/",
@@ -269,6 +270,7 @@ def not_found_page():
             A(UI_STRINGS["back_to_blog"], href="/"),
             cls="not-found",
         ),
+        req=req,
     )
 
 # ---------------------------------------------------------------------------
@@ -276,7 +278,7 @@ def not_found_page():
 # ---------------------------------------------------------------------------
 
 @rt("/")
-def index():
+def index(req):
     sorted_posts = sorted(ALL_POSTS, key=lambda p: (p["chapter"], p["date"]))
     rows = [post_row(p) for p in sorted_posts]
     return page_shell(
@@ -286,17 +288,18 @@ def index():
             Div(*rows, cls="post-list") if rows else P("Próximamente."),
             cls="blog-index",
         ),
+        req=req,
     )
 
 
 @rt("/{chapter}/")
-def chapter_index(chapter: str):
+def chapter_index(chapter: str, req):
     posts = sorted(
         [p for p in ALL_POSTS if p["chapter"] == chapter],
         key=lambda p: p["date"],
     )
     if not posts:
-        return not_found_page()
+        return not_found_page(req)
     rows = [post_row(p) for p in posts]
     return page_shell(
         chapter,
@@ -306,15 +309,16 @@ def chapter_index(chapter: str):
             Div(*rows, cls="post-list"),
             cls="blog-index",
         ),
+        req=req,
     )
 
 
 @rt("/{chapter}/{slug}")
-def post_view(chapter: str, slug: str):
+def post_view(chapter: str, slug: str, req):
     post = POST_INDEX.get((chapter, slug))
     if not post:
-        return not_found_page()
-    return page_shell(post["title"], f"/{chapter}/{slug}", post_page_content(post, POST_INDEX))
+        return not_found_page(req)
+    return page_shell(post["title"], f"/{chapter}/{slug}", post_page_content(post, POST_INDEX), req=req)
 
 
 @rt("/static/{fname:path}")
