@@ -71,10 +71,10 @@ def post_row(post: dict):
     url = f"/{post['chapter']}/{post['slug']}"
     preview = plain_preview(post["content"])
     return Article(
-        Div(
-            Span(post["date_str"], cls="post-date"),
-            cls="post-meta",
-        ),
+        # Div(
+        #     Span(post["date_str"], cls="post-date"),
+        #     cls="post-meta",
+        # ),
         A(f"{post['chapter']} / {post['slug']}", href=url, cls="chapter-label post-pill-link"),
         P(preview, cls="post-preview") if preview else None,
         cls="post-row",
@@ -101,7 +101,7 @@ def post_page_content(post: dict, post_index: dict):
             Header(
                 Div(
                     Span(chapter, cls="chapter-label"),
-                    Span(post["date_str"], cls="post-date"),
+                    # Span(post["date_str"], cls="post-date"),
                     cls="post-meta",
                 ),
                 H1(post["title"]),
