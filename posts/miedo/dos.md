@@ -1,8 +1,10 @@
 ---
 title: 2
 date: 2025-12-27
-published: false
+published: true
 slug: dos
+prev: uno
+next: tres
 ---
 
 Durante buena parte de dos décadas, desde que soy conciente de las protestas violentas y destrozonas en Santiago, es que me preguntaba por qué siempre se protestaba en el centro, y por qué, si vamos a destrozar, destrozamos siempre lo mismo. También véase: por qué no vamos a protestar a la casa de quienes tienen el poder de cambiar el país, y, por tanto, tienen el país como está. Y uno de los recuerdos más atemorizantes que tengo en mi vida fue el que respondió esta pregunta.
